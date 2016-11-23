@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersRequest;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -9,6 +11,7 @@ use App\Http\Requests;
 
 class AdminUserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +24,7 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -28,8 +32,11 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::lists('name', 'id')->all();
+
+        return view('admin.users.create', compact('roles'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,10 +44,11 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
-        //
+        return $request->all();
     }
+
 
     /**
      * Display the specified resource.
@@ -53,6 +61,7 @@ class AdminUserController extends Controller
         return view('admin.users.show');
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -63,6 +72,7 @@ class AdminUserController extends Controller
     {
         return view('admin.users.edit');
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -75,6 +85,7 @@ class AdminUserController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.
