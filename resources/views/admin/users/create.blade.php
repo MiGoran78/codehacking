@@ -25,8 +25,8 @@
 
 
         <div class="form-group">
-            {!! Form::label('status', 'Status:') !!}
-            {!! Form::select('status', array(1=>'Active', 2=>'Not active'), 2, ['class'=>'form-control']) !!}
+            {!! Form::label('is_active', 'Status:') !!}
+            {!! Form::select('is_active', array(1=>'Active', 2=>'Not active'), 2, ['class'=>'form-control']) !!}
         </div>
 
 

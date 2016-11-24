@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Crypt;
 
 class AdminUserController extends Controller
 {
@@ -46,7 +47,25 @@ class AdminUserController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        return $request->all();
+        $input = $request->all();
+
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        $input['role_id'] = $request->role_id;
+        $input['is_active']= $request->is_active;
+        $input['photo_id']= $request->file('file');
+        $input['password']= bcrypt($request->password);
+
+        User::create($input);
+        return redirect('admin/users');
+
+
+        //put all to db
+//        User::create($request->all());
+//        return redirect('/admin/users');
+
+        //display result
+//        return $request->all();
     }
 
 
