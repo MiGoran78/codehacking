@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Photo;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -47,22 +48,43 @@ class AdminUserController extends Controller
      */
     public function store(UsersRequest $request)
     {
+//        User::create($request->all());
+
         $input = $request->all();
+        if($file = $request->file('photo_id')){
 
-        $input['name'] = $request->name;
-        $input['email'] = $request->email;
-        $input['role_id'] = $request->role_id;
-        $input['is_active']= $request->is_active;
-        $input['photo_id']= $request->file('file');
-        $input['password']= bcrypt($request->password);
+            $name = time() . $file->getClientOriginalName();
 
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+
+            $input['photo_id'] = $photo->id;
+
+        }
+
+        $input['password'] = bcrypt($request->password);
         User::create($input);
-        return redirect('admin/users');
+
+
+
+//        $input = $request->all();
+//
+//        $input['name'] = $request->name;
+//        $input['email'] = $request->email;
+//        $input['role_id'] = $request->role_id;
+//        $input['is_active']= $request->is_active;
+//        $input['photo_id']= $request->file('file');
+//        $input['password']= bcrypt($request->password);
+//
+//        User::create($input);
+//        return redirect('admin/users');
 
 
         //put all to db
 //        User::create($request->all());
 //        return redirect('/admin/users');
+
 
         //display result
 //        return $request->all();
