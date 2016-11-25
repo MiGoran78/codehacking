@@ -28,6 +28,7 @@ class AdminUserController extends Controller
     }
 
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,6 +42,7 @@ class AdminUserController extends Controller
     }
 
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,21 +53,23 @@ class AdminUserController extends Controller
     {
 //        User::create($request->all());
 
-        $input = $request->all();
 
-        if($file = $request->file('photo_id')){
-
-            $name = time() . $file->getClientOriginalName();
-
-            $file->move('images', $name);
-
-            $photo = Photo::create(['file'=>$name]);
-
-            $input['photo_id'] = $photo->id;
-
+        if($request->password == ''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
         }
 
-        $input['password'] = bcrypt($request->password);
+
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+
+        //$input['password'] = bcrypt($request->password);
         User::create($input);
 
         return redirect('/admin/users');
@@ -96,6 +100,7 @@ class AdminUserController extends Controller
     }
 
 
+
     /**
      * Display the specified resource.
      *
@@ -106,6 +111,7 @@ class AdminUserController extends Controller
     {
         return view('admin.users.show');
     }
+
 
 
     /**
@@ -135,7 +141,14 @@ class AdminUserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $input = $request->all();
+
+        if($request->password == ''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+
 
         if($file = $request->file('photo_id')) {
 
@@ -150,6 +163,7 @@ class AdminUserController extends Controller
 
         return redirect('/admin/users');
     }
+
 
 
     /**
