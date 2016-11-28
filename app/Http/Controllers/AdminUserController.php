@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class AdminUserController extends Controller
 {
@@ -174,8 +176,24 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        //delete from images folder
+        $user = User::findOrFail($id);
 
-        return redirect('/Admin/users');
+        if (File::exists(public_path() . $user->photo->file)){
+            unlink(public_path() . $user->photo->file);
+            $user->delete();
+        }
+
+
+        //delete RS from DB
+        if($user->photo) {
+            //$photo = User::where('photo_id', $user->photo_id)->first();
+            $photo = Photo::findOrFail($user->photo->id);
+            $photo->delete();
+        }
+
+
+        Session::flash('deleted_user', 'The user has been deleted');
+        return redirect('/admin/users');
     }
 }
