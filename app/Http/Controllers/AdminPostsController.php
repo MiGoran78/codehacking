@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\PostsCreateRequest;
 use App\Photo;
 use App\Post;
@@ -33,7 +34,9 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::lists('name', 'id')->all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
 
@@ -56,13 +59,16 @@ class AdminPostsController extends Controller
 
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
-
         }
+
+//        $input['category_id'] = $request->category_id;
+//        $input['title'] = $request->title;
+//        $input['body'] = $request->body;
 
         //use relationship
         $user->posts()->create($input);
 
-        return $input;
+        return redirect('/admin/posts');
     }
 
 
