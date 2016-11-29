@@ -9,9 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>User</th>
-                <th>Category</th>
                 <th>Photo</th>
+                <th>Owner</th>
+                <th>Category</th>
                 <th>Title</th>
                 <th>Body</th>
                 <th>Created</th>
@@ -23,9 +23,9 @@
                 @foreach($posts as $post)
                     <tr>
                         <th>{{$post->id}}</th>
-                        <th>{{$post->user_id}}</th>
+                        <th><img height="40" src="{{$post->photo ? $post->photo->file : 'http://placehold.it/400x400'}}" alt=""></th>
+                        <th>{{$post->user->name}}</th>
                         <th>{{$post->category_id}}</th>
-                        <th>{{$post->photo_id}}</th>
                         <th>{{$post->title}}</th>
                         <th>{{$post->body}}</th>
                         <th>{{$post->created_at->diffForHumans()}}</th>
