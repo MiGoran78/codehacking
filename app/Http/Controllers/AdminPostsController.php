@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -135,6 +136,22 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        if ($post->photo) {
+            // delete the photo link to the post
+            // The physical photo will be deleted with the listener method
+            $post->photo->delete();
+
+            //netreba jer je definisano u 'App\Providers\AppServiceProvider.php'
+            //==================================================================
+            //unlink(public_path() . $post->photo->file);
+        }
+
+        $post->delete();
+
+
+        Session::flash('deleted_post', 'The post has been deleted');
+        return redirect('/admin/posts');
     }
 }

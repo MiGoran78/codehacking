@@ -20,6 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->timestamps();
+
+            //brisanjem usera brise postove
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
