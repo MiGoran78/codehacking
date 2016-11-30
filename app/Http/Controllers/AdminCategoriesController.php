@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+
 class AdminCategoriesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +18,11 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,6 +34,8 @@ class AdminCategoriesController extends Controller
         //
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,8 +44,11 @@ class AdminCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+        return redirect('/admin/categories');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -50,6 +61,8 @@ class AdminCategoriesController extends Controller
         //
     }
 
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -60,6 +73,8 @@ class AdminCategoriesController extends Controller
     {
         //
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -72,6 +87,8 @@ class AdminCategoriesController extends Controller
     {
         //
     }
+
+
 
     /**
      * Remove the specified resource from storage.
