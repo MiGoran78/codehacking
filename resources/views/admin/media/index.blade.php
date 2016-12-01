@@ -20,7 +20,7 @@
             @foreach($photos as $photo)
                 <tr>
                     <td>{{$photo->id}}</td>
-                    <td>{{$photo->file}}</td>
+                    <td><img height="50" src="{{$photo->file}}" alt=""></td>
                     <td>{{$photo->created_at ? $photo->created_at : 'no image'}}</td>
                 </tr>
             @endforeach
