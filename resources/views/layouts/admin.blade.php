@@ -26,6 +26,8 @@
 
 
 
+@yield('styles')
+
 
 </head>
 
@@ -158,7 +160,7 @@
                             </li>
 
                             <li>
-                                <a href="{{route('admin.categories.create')}}">Create Category</a>
+                                {{--<a href="{{route('admin.categories.create')}}">Create Category</a>--}}
                             </li>
 
                         </ul>
@@ -350,7 +352,8 @@
 <script src="{{asset('js/libs.js')}}"></script>
 
 
-@yield('footer')
+
+@yield('scripts')
 
 
 
