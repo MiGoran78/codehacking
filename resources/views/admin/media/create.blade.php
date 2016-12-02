@@ -12,7 +12,6 @@
     <h1>Upload Media</h1>
 
     {!! Form::open(['method'=>'POST', 'action'=> 'AdminMediaController@store', 'class'=>'dropzone']) !!}
-
     {!! Form::close() !!}
 @stop
 
