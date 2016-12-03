@@ -27,7 +27,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Created date</th>
                 </tr>

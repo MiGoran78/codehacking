@@ -10,9 +10,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Created</th>
+                    <th class="text-center">Delete</th>
                 </tr>
             </thead>
 
@@ -22,7 +23,7 @@
                         <td>{{$photo->id}}</td>
                         <td><img height="50" src="{{$photo->file}}" alt=""></td>
                         <td>{{$photo->created_at ? $photo->created_at : 'no image'}}</td>
-                        <td>
+                        <td class="text-center">
 
                             {!! Form::open(['method'=>'DELETE', 'action'=>['AdminMediaController@destroy', $photo->id]]) !!}
                                 <div class="form-group">

@@ -12,11 +12,11 @@
             <thead>
                 <tr>
                     <th class="text-center">ID</th>
+                    <th class="text-center">Photo</th>
                     <th class="text-center">Author</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Body</th>
                     <th class="text-center">Post link</th>
-                    <th class="text-center">Post ID</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Delete</th>
                 </tr>
@@ -26,11 +26,11 @@
                 @foreach($comments as $comment)
                     <tr>
                         <td class="text-center">{{$comment->id}}</td>
+                        <td class="text-center"><img height="40" src="{{$comment->post->photo ? $comment->post->photo->file : 'http://placehold.it/400x400'}}" alt=""></td>
                         <td class="text-center">{{$comment->author}}</td>
                         <td class="text-center">{{$comment->email}}</td>
                         <td class="text-center">{{$comment->body}}</td>
                         <td class="text-center"><a href="{{route('home.post', $comment->post->id)}}">View post</a></td>
-                        <td class="text-center">{{$comment->post->id}}</td>
                         <td class="text-center">
 
                             @if($comment->is_active == 1)
