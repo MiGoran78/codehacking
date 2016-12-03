@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Photo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class PostCommentsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,9 @@ class PostCommentsController extends Controller
      */
     public function index()
     {
-        return view('admin.comments.index');
+        $comments = Comment::all();
+
+        return view('admin.comments.index', compact('comments'));
     }
 
 
@@ -38,7 +44,21 @@ class PostCommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $photo = Photo::findOrFail($user->photo->id)->file;
+
+        $data = [
+            'post_id' => $request->post_id,
+            'author'  => $user->name,
+            'photo'   => $photo,
+            'email'   => $user->email,
+            'body'    => $request->body
+        ];
+
+        Comment::create($data);
+        $request->session()->flash('comment message', 'Message has been submitted and is waiting moderation');
+
+        return redirect()->back();
     }
 
 
