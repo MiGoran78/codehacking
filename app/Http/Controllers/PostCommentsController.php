@@ -46,12 +46,13 @@ class PostCommentsController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $photo = Photo::findOrFail($user->photo->id)->file;
+//        $photo = Photo::findOrFail($user->photo->id)->file;
 
         $data = [
             'post_id' => $request->post_id,
             'author'  => $user->name,
-            'photo'   => $photo,
+            'photo'   => $user->photo->file,
+//            'photo'   => $photo,
             'email'   => $user->email,
             'body'    => $request->body
         ];
@@ -73,7 +74,6 @@ class PostCommentsController extends Controller
     {
         $post = Post::findOrFail($id);
         $comments = $post->comments;
-
         return view('admin.comments.show', compact('comments'));
     }
 

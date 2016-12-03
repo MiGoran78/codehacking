@@ -11,22 +11,27 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Author</th>
-                    <th>Email</th>
-                    <th>Body</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Author</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Body</th>
+                    <th class="text-center">Post link</th>
+                    <th class="text-center">Post ID</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Delete</th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach($comments as $comment)
                     <tr>
-                        <td>{{$comment->id}}</td>
-                        <td>{{$comment->author}}</td>
-                        <td>{{$comment->email}}</td>
-                        <td>{{$comment->body}}</td>
-                        <td><a href="{{route('home.post', $comment->post->id)}}">View post</a></td>
-                        <td>
+                        <td class="text-center">{{$comment->id}}</td>
+                        <td class="text-center">{{$comment->author}}</td>
+                        <td class="text-center">{{$comment->email}}</td>
+                        <td class="text-center">{{$comment->body}}</td>
+                        <td class="text-center"><a href="{{route('home.post', $comment->post->id)}}">View post</a></td>
+                        <td class="text-center">{{$comment->post->id}}</td>
+                        <td class="text-center">
 
                             @if($comment->is_active == 1)
                                     {!! Form::open(['method'=>'PATCH', 'action'=> ['PostCommentsController@update', $comment->id]]) !!}
@@ -46,7 +51,7 @@
                                     {!! Form::close() !!}
                             @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                                 {!! Form::open(['method'=>'DELETE', 'action'=> ['PostCommentsController@destroy', $comment->id]]) !!}
                                     <div class="form-group">
                                         {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
