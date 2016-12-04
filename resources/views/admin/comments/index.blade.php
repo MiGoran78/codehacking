@@ -17,6 +17,7 @@
                     <th class="text-center">Email</th>
                     <th class="text-center">Body</th>
                     <th class="text-center">Post link</th>
+                    <th class="text-center">Replies</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Delete</th>
                 </tr>
@@ -31,6 +32,8 @@
                         <td class="text-center">{{$comment->email}}</td>
                         <td class="text-center">{{$comment->body}}</td>
                         <td class="text-center"><a href="{{route('home.post', $comment->post->id)}}">View post</a></td>
+                        <td class="text-center"><a href="{{route('admin.comments.replies.show', $comment->id)}}">View Replies</a></td>
+
                         <td class="text-center">
 
                             @if($comment->is_active == 1)
