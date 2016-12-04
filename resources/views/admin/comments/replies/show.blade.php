@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @if($replies)
+    @if(count($replies)>0)
 
         <h1>Replies</h1>
 
